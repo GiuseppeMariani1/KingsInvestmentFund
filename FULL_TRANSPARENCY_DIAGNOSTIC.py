@@ -3,8 +3,6 @@ FULL TRANSPARENCY DIAGNOSTIC
 =============================
 This script shows EXACTLY what data is being used, what's real, and what's fake.
 No hiding. No spin. Just facts.
-
-Run this to understand what your model is ACTUALLY doing.
 """
 import pandas as pd
 import numpy as np
@@ -20,9 +18,7 @@ print("=" * 80)
 print(f"Run at: {datetime.now()}")
 print()
 
-# ============================================================================
-# STEP 1: DATA LOADING - What stocks do we actually have?
-# ============================================================================
+# DATA LOADING 
 print("=" * 80)
 print("STEP 1: UNIVERSE DATA")
 print("=" * 80)
@@ -42,9 +38,8 @@ else:
     sample = list(universe.stocks)[:10]
 print(f"Sample tickers: {sample}")
 
-# ============================================================================
 # STEP 2: RETURNS DATA - How much actual price data?
-# ============================================================================
+
 print("\n" + "=" * 80)
 print("STEP 2: RETURNS DATA")
 print("=" * 80)
@@ -65,9 +60,8 @@ print(f"  - Missing data %: {(returns.isna().sum().sum() / returns.size * 100):.
 bad_stocks = (returns.isna().sum() / len(returns) > 0.5).sum()
 print(f"  - Stocks with >50% missing: {bad_stocks}")
 
-# ============================================================================
 # STEP 3: FUNDAMENTAL DATA FROM WRDS - What do we ACTUALLY have?
-# ============================================================================
+
 print("\n" + "=" * 80)
 print("STEP 3: WRDS FUNDAMENTAL DATA (QUALITY FACTORS)")
 print("=" * 80)

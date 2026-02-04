@@ -1,8 +1,5 @@
 """
 FULL TRANSPARENCY DIAGNOSTIC
-=============================
-This script shows EXACTLY what data is being used, what's real, and what's fake.
-No hiding. No spin. Just facts.
 """
 import pandas as pd
 import numpy as np
@@ -38,7 +35,7 @@ else:
     sample = list(universe.stocks)[:10]
 print(f"Sample tickers: {sample}")
 
-# STEP 2: RETURNS DATA - How much actual price data?
+# RETURNS DATA check (How much) 
 
 print("\n" + "=" * 80)
 print("STEP 2: RETURNS DATA")
@@ -60,7 +57,7 @@ print(f"  - Missing data %: {(returns.isna().sum().sum() / returns.size * 100):.
 bad_stocks = (returns.isna().sum() / len(returns) > 0.5).sum()
 print(f"  - Stocks with >50% missing: {bad_stocks}")
 
-# STEP 3: FUNDAMENTAL DATA FROM WRDS - What do we ACTUALLY have?
+# FUNDAMENTAL DATA FROM WRDS
 
 print("\n" + "=" * 80)
 print("STEP 3: WRDS FUNDAMENTAL DATA (QUALITY FACTORS)")
@@ -99,9 +96,7 @@ else:
         else:
             print("    NO VALID DATA!")
 
-# ============================================================================
-# STEP 4: FACTOR PORTFOLIO RETURNS - Real or Synthetic?
-# ============================================================================
+# FACTOR PORTFOLIO RETURNS - (Non synthetic check)
 print("\n" + "=" * 80)
 print("STEP 4: FACTOR PORTFOLIO RETURNS (REAL vs SYNTHETIC)")
 print("=" * 80)
@@ -121,9 +116,8 @@ else:
     print(f"\n{wrds_matched} tickers matched - can build REAL factor portfolios")
     factor_type = "REAL (Fama-French style)"
 
-# ============================================================================
-# STEP 5: STYLE FACTORS - What's time-varying vs constant?
-# ============================================================================
+# STYLE FACTORS (Time varying vs constant)
+
 print("\n" + "=" * 80)
 print("STEP 5: STYLE FACTOR ANALYSIS")
 print("=" * 80)
@@ -182,9 +176,8 @@ if not prices.empty:
     for name in near_zero:
         print(f"    {name}")
     
-    # ========================================================================
-    # SPECIFIC CHECK: Are quality factors real or fake?
-    # ========================================================================
+    # SPECIFIC CHECK: real v fake 
+    
     print("\n" + "-" * 60)
     print("QUALITY FACTOR DEEP DIVE")
     print("-" * 60)
@@ -219,9 +212,8 @@ if not prices.empty:
                 else:
                     print(f"    STATUS:   Cannot verify (insufficient data)")
 
-# ============================================================================
-# STEP 6: MACRO FACTORS - What external data?
-# ============================================================================
+# MACRO FACTORS - What external data?
+
 print("\n" + "=" * 80)
 print("STEP 6: MACRO FACTORS")
 print("=" * 80)
@@ -242,9 +234,8 @@ except Exception as e:
     print(f"\nMacro factor loading failed: {e}")
     macro_data = pd.DataFrame()
 
-# ============================================================================
-# STEP 7: MODEL DIAGNOSTICS
-# ============================================================================
+# MODEL DIAGNOSTICS
+
 print("\n" + "=" * 80)
 print("STEP 7: WHAT THE MODEL IS ACTUALLY DOING")
 print("=" * 80)
@@ -277,9 +268,8 @@ Based on the analysis above, here's what your model ACTUALLY does:
    - Minimal (few stocks matched to WRDS)
 """.format(factor_type))
 
-# ============================================================================
-# STEP 8: SUMMARY TABLE
-# ============================================================================
+# SUMMARY TABLE
+
 print("\n" + "=" * 80)
 print("SUMMARY: WHAT'S REAL vs FAKE")
 print("=" * 80)
